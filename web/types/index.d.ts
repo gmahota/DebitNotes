@@ -15,9 +15,7 @@ declare global {
         email: string;
     }
 
-    interface Params {
-        id: string;
-    }
+   
 
     // Definindo a interface para uma despesa
     interface Expense {

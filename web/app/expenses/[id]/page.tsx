@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from 'react';
+import { FC,use  } from 'react';
 
 import { useEffect, useState } from 'react';
   
@@ -12,9 +12,13 @@ const mockExpenses = [
   { id: 4, project: 'Projeto C', subject: 'Serviços de consultoria', estimatedValue: 1200, date: '2024-10-12', status: 'Pendente', receipts: ['/comprovativos/consultoria.pdf'] },
 ];
 
-const ExpenseDetailsPage: FC<{ params: Params }>= ({ params }) => {
+interface Params {
+  id: string;
+}
+
+const ExpenseDetailsPage: FC<{ params: Promise<{id:string}> }>= ({ params }) => {
   
-  const { id } = params; // Alterado para usar 'router.query' corretamente
+  const { id } = use(params); // Alterado para usar 'router.query' corretamente
 
   const [expense, setExpense] = useState<Expense>(); // Use 'any' se a interface não for definida
 
