@@ -12,10 +12,6 @@ const mockExpenses = [
   { id: 4, project: 'Projeto C', subject: 'Serviços de consultoria', estimatedValue: 1200, date: '2024-10-12', status: 'Pendente', receipts: ['/comprovativos/consultoria.pdf'] },
 ];
 
-interface Params {
-  id: string;
-}
-
 const ExpenseDetailsPage: FC<{ params: Promise<{id:string}> }>= ({ params }) => {
   
   const { id } = use(params); // Alterado para usar 'router.query' corretamente
