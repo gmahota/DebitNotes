@@ -5,15 +5,23 @@ import Link from 'next/link';
 import { getExpenses } from '@/services/expenseService';
 import withAuth from '@/app/utils/withAuth';
 
+
 const ExpensesPage: React.FC = () => {
 
-    const expenses = getExpenses();
+  const [expenses, setExpenses] = useState<Expense[]>([]);
 
   const [filteredExpenses, setFilteredExpenses] = useState<Expense[]>(expenses);
   const [filter, setFilter] = useState({ status: '', project: '', startDate: '', endDate: '' });
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
+    async function fetchExpenses() {
+      const response = await fetch('/api/expenses');
+      const data = await response.json();
+      setExpenses(data);
+    }
+
+    fetchExpenses();
     // Filtrar as despesas com base nos critérios
     let filtered = expenses;
 
@@ -21,13 +29,13 @@ const ExpensesPage: React.FC = () => {
       filtered = filtered.filter(exp => exp.status === filter.status);
     }
     if (filter.project) {
-      filtered = filtered.filter(exp => exp.project.toLowerCase().includes(filter.project.toLowerCase()));
+      filtered = filtered.filter(exp => exp.project!.toLowerCase().includes(filter.project.toLowerCase()));
     }
     if (filter.startDate) {
-      filtered = filtered.filter(exp => new Date(exp.date) >= new Date(filter.startDate));
+      filtered = filtered.filter(exp => new Date(exp.date!) >= new Date(filter.startDate));
     }
     if (filter.endDate) {
-      filtered = filtered.filter(exp => new Date(exp.date) <= new Date(filter.endDate));
+      filtered = filtered.filter(exp => new Date(exp.date!) <= new Date(filter.endDate));
     }
 
     setFilteredExpenses(filtered);
@@ -61,7 +69,7 @@ const ExpensesPage: React.FC = () => {
         // Atualize o estado da despesa com o novo status e link do comprovativo
         setExpenses((prevExpenses) =>
           prevExpenses.map((expense) =>
-            expense.id === expenseId
+            expense.id.toString() === expenseId
               ? { ...expense, status: 'Justificado', fileUrl: result.expense.fileUrl }
               : expense
           )
@@ -138,8 +146,8 @@ const ExpensesPage: React.FC = () => {
         <td className="border px-4 py-2">
           <Link href={`/expenses/${exp.id}`}>{exp.subject}</Link>
         </td>
-        <td className="border px-4 py-2">{exp.estimatedValue.toFixed(2)}</td>
-        <td className="border px-4 py-2">{new Date(exp.date).toLocaleDateString()}</td>
+        <td className="border px-4 py-2">{exp.estimatedValue!.toFixed(2)}</td>
+        <td className="border px-4 py-2">{new Date(exp.date!).toLocaleDateString()}</td>
         <td className="border px-4 py-2">{exp.status}</td>
         <td>{exp.justification || 'Não justificado'}</td>
               <td>
@@ -170,4 +178,4 @@ const ExpensesPage: React.FC = () => {
   );
 };
 
-export default withAuth(ExpensesPage);
+export default ExpensesPage;

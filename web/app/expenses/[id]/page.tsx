@@ -16,12 +16,12 @@ const ExpenseDetailsPage: FC<{ params: Params }>= ({ params }) => {
   
   const { id } = params; // Alterado para usar 'router.query' corretamente
 
-  const [expense, setExpense] = useState<any>(null); // Use 'any' se a interface não for definida
+  const [expense, setExpense] = useState<Expense>(); // Use 'any' se a interface não for definida
 
   useEffect(() => {
     if (id) {
       const expenseDetails = mockExpenses.find(exp => exp.id === Number(id));
-      setExpense(expenseDetails || null);
+      setExpense(expenseDetails);
     }
   }, [id]);
 
