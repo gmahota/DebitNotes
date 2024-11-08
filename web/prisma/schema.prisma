@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id            String   @id @default(uuid())
+  expenseId     Int      // Corrigido para Int
+  action        String
+  changedBy     String
+  changes       String
+  justification String
+  createdAt     DateTime @default(now())
+
+  expense       Expense  @relation(fields: [expenseId], references: [id])
+}
+
+model Expense {
+  id            Int       @id @default(autoincrement())
+  project       String?
+  subject       String?
+  description   String?
+  amount        Float?
+  estimatedValue Float?
+  date          DateTime?
+  status        String?
+  justification String?
+  fileUrl       String?
+  updatedAt     DateTime? @updatedAt
+  receipts      String?     // Agora como Json
+  notes         String?
+  auditLog AuditLog[]
+}
+
+
+model Reimbursement {
+  id          String    @id @default(uuid())
+  date        DateTime
+  amount      Float
+  balanceData BalanceData? @relation(fields: [balanceDataId], references: [id])
+  balanceDataId Int?
+}
+
+model BalanceData {
+  id             Int        @id @default(autoincrement())
+  totalSpent     Float
+  totalReimbursed Float
+  pendingBalance Float
+  reimbursements Reimbursement[]
+}
