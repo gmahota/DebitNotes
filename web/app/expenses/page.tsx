@@ -11,14 +11,18 @@ const ExpensesPage: React.FC = () => {
   const [filter, setFilter] = useState({ status: '', project: '', startDate: '', endDate: '' });
   const [uploading, setUploading] = useState(false);
 
+  // Carrega as despesas ao montar o componente
   useEffect(() => {
     async function fetchExpenses() {
       const response = await fetch('/api/expenses');
       const data = await response.json();
       setExpenses(data);
+      setFilteredExpenses(data); // Define a lista filtrada inicial como todos os dados
     }
-
     fetchExpenses();
+  }, []); // Esse useEffect é executado apenas uma vez
+
+  useEffect(() => {
     // Filtrar as despesas com base nos critérios
     let filtered = expenses;
 
