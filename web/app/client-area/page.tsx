@@ -1,6 +1,6 @@
 // app/client-area/page.tsx
 import Summary from './Summary';
-import ExpensesList from './ExpensesList';
+//import ExpensesList from './ExpensesList';
 import ReportsDownload from './ReportsDownload';
 import RealTimeExpenses from './RealTimeExpenses';
 

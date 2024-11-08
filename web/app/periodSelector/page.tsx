@@ -16,14 +16,14 @@ const PeriodSelector: React.FC = () => {
     setDebitNote(note);
   };
 
-  const generateDebitNote = (expenses: any[], startDate: string, endDate: string) => {
+  const generateDebitNote = (expenses: Expense[], startDate: string, endDate: string) => {
     if (expenses.length === 0) {
       return 'Nenhuma despesa encontrada para o período selecionado.';
     }
 
     let total = 0;
     const details = expenses.map(expense => {
-      total += expense.estimatedValue;
+      total += expense.estimatedValue ||0;
       return `Projeto: ${expense.project}, Assunto: ${expense.subject}, Valor: ${expense.estimatedValue}, Status: ${expense.status}, Justificativa: ${expense.justification}`;
     });
 

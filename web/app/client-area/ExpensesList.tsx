@@ -1,21 +1,19 @@
-//'use client';
+'use client';
 
-import { getExpenses } from '@/services/expenseService';
 import { useEffect, useState } from 'react';
 
 const ExpensesList = () => {
-    // const [expenses, setExpenses] = useState<Expense[] | null>(null);
+    const [expenses, setExpenses] = useState<Expense[] | null>(null);
 
-    // useEffect(() => {
-    //     async function fetchExpenses() {
-    //         const response = await fetch('/api/expenses');
-    //         const data = await response.json();
-    //         setExpenses(data);
-    //     }
+    useEffect(() => {
+        async function fetchExpenses() {
+            const response = await fetch('/api/expenses');
+            const data = await response.json();
+            setExpenses(data);
+        }
 
-    //     fetchExpenses();
-    // }, []);
-    const expenses = getExpenses();
+        fetchExpenses();
+    }, []);
 
     if (!expenses) return <p>Carregando...</p>;
     return (

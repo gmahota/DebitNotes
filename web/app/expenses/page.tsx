@@ -2,9 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getExpenses } from '@/services/expenseService';
-import withAuth from '@/app/utils/withAuth';
-
 
 const ExpensesPage: React.FC = () => {
 

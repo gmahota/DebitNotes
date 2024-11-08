@@ -37,8 +37,8 @@ const ExpenseDetailsPage: FC<{ params: Params }>= ({ params }) => {
         <h2 className="text-lg font-semibold">Informações da Despesa</h2>
         <p><strong>Projeto:</strong> {expense.project}</p>
         <p><strong>Assunto:</strong> {expense.subject}</p>
-        <p><strong>Valor Estimado (MZN):</strong> {expense.estimatedValue.toFixed(2)}</p>
-        <p><strong>Data:</strong> {new Date(expense.date).toLocaleDateString()}</p>
+        <p><strong>Valor Estimado (MZN):</strong> {expense.estimatedValue!.toFixed(2)}</p>
+        <p><strong>Data:</strong> {new Date(expense.date!).toLocaleDateString()}</p>
         <p><strong>Status:</strong> {expense.status}</p>
       </div>
 

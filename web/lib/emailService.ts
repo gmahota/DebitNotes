@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import path from 'path';
-import fs from 'fs';
+//import fs from 'fs';
 
 // Função para enviar e-mail com anexos
 export const sendDebitNoteEmail = async (recipient: string, debitNote: string, attachments: string[]) => {
