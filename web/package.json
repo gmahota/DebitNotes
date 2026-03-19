@@ -21,7 +21,7 @@
     "clsx": "^2.1.1",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.2",
-    "next": "15.0.2",
+    "next": "15.0.7",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
     "papaparse": "^5.4.1",
